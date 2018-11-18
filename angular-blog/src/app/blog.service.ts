@@ -6,10 +6,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-@Injectable({
-  providedIn: 'root'
-})
-
 export class Post {
   postid: number;
   created: Date;
@@ -17,6 +13,10 @@ export class Post {
   title: string;
   body: string;
 }
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class BlogService {
   private baseUrl = 'api';  // URL to web api
@@ -26,7 +26,7 @@ export class BlogService {
     // initializations for testing purpos
   }
 
-  fetchPosts (username: string): void{
+  fetchPosts (username: string): void {
     // add a response event handler
     const url = '${baseUrl}/${username}';
     this.http.get(url);
@@ -40,7 +40,7 @@ export class BlogService {
     return of(this.posts.filter(post => post.postid === id)[0]);
   }
 
-  newPost(username: string): Observable<Post>{
+  newPost(username: string): Observable<Post> {
     const time = new Date();
     const postid = 0;
     const url = '${baseUrl}/${username}/${postid}';
@@ -59,6 +59,15 @@ export class BlogService {
     });
     const url = '${baseUrl}/${username}/${postid}';
     this.http.put(url, updateed_post, httpOptions);
+  }
+
+  deletePost(username: string, postid: number): void {
+    const url = '${baseUrl}/${username}/${postid}';
+    let to_delete: Post[] = this.posts.filter(p => p.postid === postid);
+    if (to_delete.length > 0){
+      this.posts = this.posts.filter(p => p.postid !== postid);
+      this.http.delete(url, httpOptions);
+    }
   }
 }
 
