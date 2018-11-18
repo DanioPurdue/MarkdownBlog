@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @Component({
   selector: 'app-root',
