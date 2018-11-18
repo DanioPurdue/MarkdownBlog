@@ -20,7 +20,8 @@ export class BlogService {
   private baseUrl = 'api';  // URL to web api
   private http: HttpClient;
   private posts: Post[];
-  constructor() {
+  private sampleUrl;
+  constructor(http: HttpClient) {
     // initializations for testing purpos
   }
 
@@ -28,6 +29,11 @@ export class BlogService {
     // add a response event handler
     const url = '${baseUrl}/${username}';
     this.http.get(url);
+  }
+
+  getPostsHttp (): Observable<Post[]> {
+    this.sampleUrl = 'localhost:3000/api/cs144';
+    return this.http.get<Post[]>(this.sampleUrl);
   }
 
   getPosts(username: string): Observable<Post []> {
