@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,5 +14,5 @@ export class Post {
 
 export class BlogService {
   private posts: Post[];
-  constructor() { }
+  constructor(http: HttpClient) { }
 }
