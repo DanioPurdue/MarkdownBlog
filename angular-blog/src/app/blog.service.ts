@@ -18,10 +18,9 @@ export class Post {
 
 export class BlogService {
   private baseUrl = 'api';  // URL to web api
-  private http: HttpClient;
   private posts: Post[];
   private sampleUrl;
-  constructor(http: HttpClient) {
+  constructor(private http: HttpClient) {
     // initializations for testing purpos
   }
 
