@@ -14,9 +14,7 @@ export class Post {
   body: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 
 export class BlogService {
   private baseUrl = 'api';  // URL to web api

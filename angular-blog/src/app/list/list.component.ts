@@ -17,6 +17,7 @@ export class ListComponent implements OnInit {
   }
 
   getPosts(): void {
+    // this.username = 'cs144';
     this.blogService.getPosts(this.username)
       .subscribe(posts => this.posts = posts);
   }
