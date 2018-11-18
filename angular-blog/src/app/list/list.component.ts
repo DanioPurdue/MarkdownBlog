@@ -9,14 +9,20 @@ import {Post} from '../blog.service';
 })
 export class ListComponent implements OnInit {
   posts: Post[];
-  constructor() { }
+  username: string;
+  constructor(private blogService: BlogService) { }
 
   ngOnInit() {
     this.getPosts();
   }
 
   getPosts(): void {
-    this.BlogPosts().subscribe(posts => this.posts = posts);
+    this.blogService.getPosts(this.username)
+      .subscribe(posts => this.posts = posts);
+  }
+
+  createPost(): void{
+    return;
   }
 
 }
