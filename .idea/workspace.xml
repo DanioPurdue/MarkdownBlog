@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54a21ce1-989c-48d6-9556-61370c78c5ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular-blog/src/app/blog.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular-blog/src/app/blog.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular-blog/src/app/list/list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular-blog/src/app/list/list.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,13 +30,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="258" />
-          <entry key="ts" value="544" />
+          <entry key="ts" value="545" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="258" />
-          <entry key="TypeScript" value="544" />
+          <entry key="TypeScript" value="545" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -59,11 +57,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/angular-blog/src/app/blog.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+            <state relative-caret-position="697">
+              <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -76,7 +74,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/angular-blog/src/app/list/list.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -89,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/angular-blog/src/app/app.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -98,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/angular-blog/src/app/list/list.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
-              <caret line="12" column="51" lean-forward="true" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+              <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -116,9 +114,9 @@
       <list>
         <option value="$PROJECT_DIR$/angular-blog/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/angular-blog/src/app/app.component.html" />
-        <option value="$PROJECT_DIR$/angular-blog/src/app/blog.service.ts" />
         <option value="$PROJECT_DIR$/angular-blog/src/app/list/list.component.ts" />
         <option value="$PROJECT_DIR$/angular-blog/src/app/list/list.component.html" />
+        <option value="$PROJECT_DIR$/angular-blog/src/app/blog.service.ts" />
       </list>
     </option>
   </component>
@@ -1358,12 +1356,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1542506866239</updated>
-      <workItem from="1542506870453" duration="8632000" />
+      <workItem from="1542506870453" duration="8898000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8632000" />
+    <option name="totallyTimeSpent" value="8898000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="210" y="23" width="1674" height="1057" extended-state="0" />
@@ -1414,27 +1412,14 @@
     <entry file="file://$PROJECT_DIR$/angular-blog/src/app/app.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/angular-blog/src/tslint.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/angular-blog/src/app/blog.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/angular-blog/src/app/list/list.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="12" column="51" lean-forward="true" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
@@ -1445,6 +1430,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/angular-blog/src/tslint.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/angular-blog/src/app/blog.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
