@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
       .subscribe(posts => this.posts = posts);
   }
 
-  createPost(): void{
+  createPost(): void {
     return;
   }
 

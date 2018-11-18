@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, of} from "rxjs";
+import { Observable, of} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,8 +16,6 @@ export class Post {
   modified: Date;
   title: string;
   body: string;
-
-  constructor(){ }
 }
 
 export class BlogService {
@@ -44,7 +42,7 @@ export class BlogService {
 
   newPost(username: string): Observable<Post>{
     const time = new Date();
-    let postid = 0;
+    const postid = 0;
     const url = '${baseUrl}/${username}/${postid}';
     const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
     // let post = new Post(postid, time, time, '','');
@@ -54,8 +52,8 @@ export class BlogService {
     return of(post);
   }
 
-  updatePost(username: string, post: Post): void{
-    let updateed_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
+  updatePost(username: string, post: Post): void {
+    const updateed_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
       p.title = post.title;
       p.body = post.body;
     });
