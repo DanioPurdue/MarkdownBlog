@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,22 +19,14 @@ export class Post {
 
 export class BlogService {
   private baseUrl = 'api';  // URL to web api
-  private http: HttpClient;
   private posts: Post[];
-  private sampleUrl;
-  constructor(http: HttpClient) {
-    // initializations for testing purpos
-  }
+  // private http: HttpClient;
+  constructor(private http: HttpClient) {}
 
   fetchPosts (username: string): void {
     // add a response event handler
     const url = '${baseUrl}/${username}';
     this.http.get(url);
-  }
-
-  getPostsHttp (): Observable<Post[]> {
-    this.sampleUrl = 'localhost:3000/api/cs144';
-    return this.http.get<Post[]>(this.sampleUrl);
   }
 
   getPosts(username: string): Observable<Post []> {
