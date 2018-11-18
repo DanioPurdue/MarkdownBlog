@@ -32,8 +32,10 @@ export class BlogService {
   private posts: Post[];
   constructor() { }
 
-  fetchPosts (username : string): void{
-    this.http.get(this.baseUrl);
+  fetchPosts (username: string): void{
+    // add a response event handler
+    const url = '${baseUrl}/${username}';
+    this.http.get(url);
   }
 
   getPosts(username: string): Post[]{
@@ -48,7 +50,8 @@ export class BlogService {
     const time = new Date();
     let postid = 0;
     const url = '${baseUrl}/${username}/${postid}';
-    let post = new Post(postid, time, time, '','');
+    const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
+    // let post = new Post(postid, time, time, '','');
     this.http.post(url, post, httpOptions);
     this.posts.push(post);
     // add response handler
