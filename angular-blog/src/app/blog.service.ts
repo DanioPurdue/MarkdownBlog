@@ -59,14 +59,14 @@ export class BlogService {
     this.http.put(url, updateed_post, httpOptions);
   }
 
-  deletePost(username: string, postid: number): void {
-    const url = '${baseUrl}/${username}/${postid}';
-    let to_delete: Post[] = this.posts.filter(p => p.postid === postid);
-    if (to_delete.length > 0){
-      this.posts = this.posts.filter(p => p.postid !== postid);
-      this.http.delete(url, httpOptions);
-    }
-  }
+  // deletePost(username: string, postid: number): void {
+  //   const url = '${baseUrl}/${username}/${postid}';
+  //   let to_delete: Post[] = this.posts.filter(p => p.postid === postid);
+  //   if (to_delete.length > 0){
+  //     this.posts = this.posts.filter(p => p.postid !== postid);
+  //     this.http.delete(url, httpOptions);
+  //   }
+  // }
 }
 
 
