@@ -31,6 +31,9 @@ export class BlogService {
   }
 
   getPosts(username: string): Observable<Post []> {
+    this.posts = [
+      {postid: 1, created: new Date(), modified: new Date(), title: 'Title 1', body: 'Hello, world!' },
+      {postid: 2, created: new Date(), modified: new Date(), title: 'Title 2', body: 'Hasdfsdd!' }];
     return of(this.posts);
   }
 
