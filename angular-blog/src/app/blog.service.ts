@@ -5,11 +5,6 @@ import { Observable, of} from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
-@Injectable({
-  providedIn: 'root'
-})
-
 export class Post {
   postid: number;
   created: Date;
@@ -18,6 +13,7 @@ export class Post {
   body: string;
 }
 
+@Injectable({providedIn: 'root'})
 export class BlogService {
   private baseUrl = 'api';  // URL to web api
   private http: HttpClient;
