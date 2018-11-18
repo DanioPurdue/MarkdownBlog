@@ -37,7 +37,7 @@ export class BlogService {
     return of(this.posts);
   }
 
-  getPost(username: string, id: number): Observable<Post>{
+  getPost(username: string, id: number): Observable<Post> {
     return of(this.posts.filter(post => post.postid === id)[0]);
   }
 
