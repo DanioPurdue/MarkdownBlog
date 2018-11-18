@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,12 +56,12 @@ export class BlogService {
   }
 
   updatePost(username: string, post: Post): void{
-    let p = this.posts.filter(p => p.postid == post.postid).forEach(p => {
+    let updateed_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
       p.title = post.title;
       p.body = post.body;
     });
     const url = '${baseUrl}/${username}/${postid}';
-    this.http.put(url, p, httpOptions);
+    this.http.put(url, updateed_post, httpOptions);
   }
 }
 
