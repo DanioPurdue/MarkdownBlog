@@ -26,8 +26,10 @@ export class BlogService {
     // initializations for testing purpos
   }
 
-  fetchPosts (username: string): void {
-    this.http.get(this.baseUrl);
+  fetchPosts (username: string): void{
+    // add a response event handler
+    const url = '${baseUrl}/${username}';
+    this.http.get(url);
   }
 
   getPosts(username: string): Observable<Post []> {
@@ -45,7 +47,8 @@ export class BlogService {
     const time = new Date();
     const postid = 0;
     const url = '${baseUrl}/${username}/${postid}';
-    const post = new Post(postid, time, time, '', '');
+    const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
+    // let post = new Post(postid, time, time, '','');
     this.http.post(url, post, httpOptions);
     this.posts.push(post);
     // add response handler
