@@ -29,17 +29,14 @@ export class BlogService {
   }
 
   getPosts(username: string): Observable<Post []> {
-    this.posts = [
-      {postid: 1, created: new Date(), modified: new Date(), title: 'Title 1', body: 'Hello, world!' },
-      {postid: 2, created: new Date(), modified: new Date(), title: 'Title 2', body: 'Hasdfsdd!' }];
     return of(this.posts);
   }
 
-  getPost(username: string, id: number): Post {
-    return this.posts.filter(post => post.postid === id)[0];
+  getPost(username: string, id: number): Observable<Post>{
+    return of(this.posts.filter(post => post.postid === id)[0]);
   }
 
-  newPost(username: string): Post {
+  newPost(username: string): Observable<Post>{
     const time = new Date();
     const postid = 0;
     const url = '${baseUrl}/${username}/${postid}';
@@ -48,7 +45,7 @@ export class BlogService {
     this.http.post(url, post, httpOptions);
     this.posts.push(post);
     // add response handler
-    return post;
+    return of(post);
   }
 
   updatePost(username: string, post: Post): void {
