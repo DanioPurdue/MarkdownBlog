@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { Observable, of} from "rxjs";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,27 +17,32 @@ export class Post {
   title: string;
   body: string;
 
-  constructor(postid, created, modified, title, body){
-    this.postid = postid;
-    this.created = created;
-    this.modified = modified;
-    this.title = title;
-    this.body = body;
-  }
+  // constructor(postid, created, modified, title, body){
+  //   this.postid = postid;
+  //   this.created = created;
+  //   this.modified = modified;
+  //   this.title = title;
+  //   this.body = body;
+  // }
 }
 
 export class BlogService {
   private baseUrl = 'api';  // URL to web api
   private http: HttpClient;
   private posts: Post[];
-  constructor() { }
+  constructor() {
+    // initializations for testing purpos
+  }
 
-  fetchPosts (username : string): void{
+  fetchPosts (username : string): void {
     this.http.get(this.baseUrl);
   }
 
-  getPosts(username: string): Post[]{
-    return this.posts;
+  getPosts(username: string): Observable<Post []> {
+    this.posts = [
+      {postid: 1, created: new Date(), modified: new Date(), title: 'Title 1', body: 'Hello, world!' },
+      {postid: 2, created: new Date(), modified: new Date(), title: 'Title 2', body: 'Hasdfsdd!' }];
+    return of(this.posts);
   }
 
   getPost(username: string, id: number): Post{

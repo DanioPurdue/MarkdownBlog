@@ -1,6 +1,9 @@
 <p>
   list works!
 </p>
+<button clas="new_post" (click)="createPost()">
+  New
+</button>
 <ul class="Posts">
   <li *ngFor="let post of posts">
     <span class="badge">{{post.modified}}</span>{{post.title}}
