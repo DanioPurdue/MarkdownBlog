@@ -26,4 +26,8 @@ export class ListComponent implements OnInit {
     return;
   }
 
+  testFetch() :void{
+    this.blogService.fetchPosts('cs144');
+  }
+
 }
