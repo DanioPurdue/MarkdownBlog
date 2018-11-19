@@ -14,10 +14,11 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.getPosts();
+    this.blogService.parseHttpResposne();
   }
 
   getPosts(): void {
-    // this.username = 'cs144';
+    this.username = 'cs144';
     this.blogService.getPosts(this.username)
       .subscribe(posts => this.posts = posts);
   }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
-
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,14 +14,23 @@ export class Post {
   body: string;
 }
 
+export interface RawTuple {
+  postid: number;
+  username: string;
+  created: Date;
+  modified: Date;
+  title: string;
+  body: string;
+}
+
 @Injectable({providedIn: 'root'})
 
 export class BlogService {
   private baseUrl = 'http://localhost:3000/api';  // URL to web api
   private posts: Post[];
-
-  // private http: HttpClient;
   constructor(private http: HttpClient) {}
+  private rawTuples: RawTuple[];
+  private headers: string;
 
   fetchPosts (username: string): void {
     // add a response event handler
@@ -40,6 +48,18 @@ export class BlogService {
           this.posts.push(post);
         }
       }
+    });
+  }
+
+  getPostsHttp (): Observable<RawTuple[]> {
+    const sampleUrl = 'http://localhost:3000/api/cs144';
+    return this.http.get<RawTuple[]>(sampleUrl);
+  }
+
+  parseHttpResposne(): void {
+    this.getPostsHttp().subscribe(data => {
+      this.rawTuples = data;
+      console.log(this.rawTuples);
     });
   }
 
