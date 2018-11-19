@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 const httpOptions = {observe: 'response'};
 
@@ -26,7 +27,7 @@ export interface RawTuple {
 export class BlogService {
   private baseUrl = 'http://localhost:3000/api';  // URL to web api
   private posts: Post[];
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   private rawTuples: RawTuple[];
   private headers: string;
 
@@ -78,6 +79,8 @@ export class BlogService {
       console.log('new post', res['status']);
       if (res['status'] !== 200) {
         this.posts.pop();
+        console.log('error creating new post');
+        this.router.navigateByUrl('/');
       }
     });
     return of(post);
@@ -113,6 +116,7 @@ export class BlogService {
           console.log('error deleting post');
           // display alert message
           // navigate to /, the list pane
+          this.router.navigateByUrl('/');
         }
       });
     }
