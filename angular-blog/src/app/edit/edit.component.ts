@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {tick} from '@angular/core/testing';
-import { Post } from "../blog.service";
+import { Post } from '../blog.service';
+import { BlogService} from '../blog.service';
+import {Router, RouterModule, Routes} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -8,14 +11,20 @@ import { Post } from "../blog.service";
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  curr_post : Post;
+  post: Post;
 
-  constructor() {
-    // this.curr_post.title = 'hello title';
-    // this.curr_post.body = 'hello body';
+  constructor(private blogService: BlogService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.getPost();
+  }
+
+  getPost(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.blogService.getPost('cs144', id)
+      .subscribe(post => this.post = post);
+
   }
 
   deletePost(): void {

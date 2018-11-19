@@ -51,18 +51,6 @@ export class BlogService {
     });
   }
 
-  getPostsHttp (): Observable<RawTuple[]> {
-    const sampleUrl = 'http://localhost:3000/api/cs144';
-    return this.http.get<RawTuple[]>(sampleUrl);
-  }
-
-  parseHttpResposne(): void {
-    this.getPostsHttp().subscribe(data => {
-      this.rawTuples = data;
-      console.log(this.rawTuples);
-    });
-  }
-
   getPosts(username: string): Observable<Post []> {
     return of(this.posts);
   }
@@ -134,6 +122,12 @@ export class BlogService {
       });
     }
   }
+
+  refreshPosts(username: string): Observable<Post[]> {
+    this.fetchPosts(username);
+    return this.getPosts(username);
+  }
+
 }
 
 

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService} from '../blog.service';
 import {Post} from '../blog.service';
+import {Router, RouterModule, Routes} from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
+import {post} from "selenium-webdriver/http";
 
 @Component({
   selector: 'app-list',
@@ -10,7 +13,7 @@ import {Post} from '../blog.service';
 export class ListComponent implements OnInit {
   posts: Post[];
   username: string;
-  constructor(private blogService: BlogService) { }
+  constructor(private blogService: BlogService, private route: Router) { }
 
   ngOnInit() {
     this.blogService.fetchPosts('cs144');
@@ -32,6 +35,8 @@ export class ListComponent implements OnInit {
   }
 
   createPost(): void {
+    this.blogService.newPost('cs144')
+      .subscribe(post => this.route.navigateByUrl(`edit/${post.postid}`));
     return;
   }
 
@@ -55,7 +60,7 @@ export class ListComponent implements OnInit {
   }
 
   testDelete(): void{
-    this.blogService.deletePost('cs144', 4);
+    this.blogService.refreshPosts('cs144').subscribe(posts => this.posts = posts);
   }
 
   testUpdate(): void {
