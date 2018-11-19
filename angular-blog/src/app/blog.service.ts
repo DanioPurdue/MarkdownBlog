@@ -74,7 +74,7 @@ export class BlogService {
   newPost(username: string): Observable<Post> {
     const time = new Date();
     const postid = 0;
-    const url = '${baseUrl}/${username}/${postid}';
+    const url = `${this.baseUrl}/${username}/${postid}`;
     const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
     // let post = new Post(postid, time, time, '','');
     this.http.post(url, post, httpOptions);
@@ -84,12 +84,19 @@ export class BlogService {
   }
 
   updatePost(username: string, post: Post): void {
-    const updateed_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
+    const updated_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
       p.title = post.title;
       p.body = post.body;
+      p.modified = new Date();
     });
     const url = '${baseUrl}/${username}/${postid}';
-    this.http.put(url, updateed_post, httpOptions);
+    this.http.put(url, updated_post, httpOptions).subscribe(res => {
+      if (res['status'] !== 200) {
+        console.log('Error updating post');
+        // display error
+        // navigate to "edit view" page
+      }
+    });
   }
 
   // deletePost(username: string, postid: number): void {
