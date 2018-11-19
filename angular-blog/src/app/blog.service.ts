@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import {forEach} from '@angular/router/src/utils/collection';
+import {element} from 'protractor';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,7 +29,7 @@ export interface RawTuple {
 @Injectable({providedIn: 'root'})
 
 export class BlogService {
-  private baseUrl = 'api';  // URL to web api
+  private baseUrl = 'http://localhost:3000/api';  // URL to web api
   private posts: Post[];
   constructor(private http: HttpClient) {}
   private rawTuples: RawTuple[];
@@ -35,8 +37,19 @@ export class BlogService {
 
   fetchPosts (username: string): void {
     // add a response event handler
-    const url = '${baseUrl}/${username}';
-    this.http.get(url);
+    this.posts = [];
+    const url = `${this.baseUrl}/${username}`;
+    console.log(url);
+    this.http.get(url,{observe: 'response'}).subscribe((res) => {
+      console.log(res);
+      let data = res.body;
+      for (let idx in data) {
+        let element = data[idx];
+        let post: Post = {postid: element['postid'], created: Date(element['created']),
+          modified: new Date(element['modified']), title: element['title'], body: element['body']};
+        this.posts.push(post);
+      }
+    });
   }
 
   getPostsHttp (): Observable<RawTuple[]> {
