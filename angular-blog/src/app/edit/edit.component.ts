@@ -12,4 +12,15 @@ export class EditComponent implements OnInit {
   ngOnInit() {
   }
 
+  deletePost(): void {
+    return;
+  }
+
+  savePost(): void {
+    return;
+  }
+
+  previewPost(): void {
+    return;
+  }
 }
