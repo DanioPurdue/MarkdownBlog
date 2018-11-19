@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router} from '@angular/router';
 
 const httpOptions = {observe: 'response'};
 
@@ -27,7 +27,9 @@ export interface RawTuple {
 export class BlogService {
   private baseUrl = 'http://localhost:3000/api';  // URL to web api
   private posts: Post[];
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+
+  }
   private rawTuples: RawTuple[];
   private headers: string;
 
@@ -69,18 +71,29 @@ export class BlogService {
     return of(this.posts.filter(post => post.postid === id)[0]);
   }
 
+  generatePostid(): number {
+    let max = 0;
+    for (let p of this.posts){
+      if (p.postid > max) {
+        max = p.postid;
+      }
+    }
+    return max + 1;
+  }
+
   newPost(username: string): Observable<Post> {
+    console.log('posts: ', this.posts);
     const time = new Date();
-    const postid = this.posts.length + 1;
+    const postid = this.generatePostid();
     const url = `${this.baseUrl}/${username}/${postid}`;
     const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
     this.posts.push(post);
     this.http.post(url, {title: '', body: ''},{observe: 'response'}).subscribe(res => {
-      console.log('new post', res['status']);
-      if (res['status'] !== 200) {
+      //console.log('new post', res['status']);
+      if (res['status'] !== 201) {
         this.posts.pop();
         console.log('error creating new post');
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/preview');
       }
     });
     return of(post);
