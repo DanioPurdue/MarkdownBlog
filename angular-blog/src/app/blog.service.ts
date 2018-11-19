@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+const httpOptions = {observe: 'response'};
 
 export class Post {
   postid: number;
@@ -36,9 +34,8 @@ export class BlogService {
     // add a response event handler
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
-    console.log(url);
     this.http.get(url, {observe: 'response'}).subscribe((res) => {
-      console.log(res);
+      // console.log(res.status);
       const data = res.body;
       for (let idx in data) {
         if (data.hasOwnProperty(idx)){
@@ -73,33 +70,53 @@ export class BlogService {
 
   newPost(username: string): Observable<Post> {
     const time = new Date();
-    const postid = 0;
-    const url = '${baseUrl}/${username}/${postid}';
+    const postid = this.posts.length + 1;
+    const url = `${this.baseUrl}/${username}/${postid}`;
     const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
-    // let post = new Post(postid, time, time, '','');
-    this.http.post(url, post, httpOptions);
     this.posts.push(post);
-    // add response handler
+    this.http.post(url, {title: '', body: ''},{observe: 'response'}).subscribe(res => {
+      console.log('new post', res['status']);
+      if (res['status'] !== 200) {
+        this.posts.pop();
+      }
+    });
     return of(post);
   }
 
   updatePost(username: string, post: Post): void {
-    const updateed_post = this.posts.filter(p => p.postid === post.postid).forEach(p => {
+    // do nothing if there is no match (loop not entered)
+    const updated_post = this.posts.filter(p => p.postid === post.postid).slice(0, 1).forEach(p => {
       p.title = post.title;
       p.body = post.body;
+      p.modified = new Date();
+      const url = `${this.baseUrl}/${username}/${p.postid}`;
+      console.log(p);
+      this.http.put(url, {title: p.title, body: p.body}, {observe: 'response'}).subscribe(res => {
+        console.log(res);
+        if (res['status'] !== 200) {
+          console.log('Error updating post');
+          // display error
+          // navigate to "edit view" page
+        }
+      });
     });
-    const url = '${baseUrl}/${username}/${postid}';
-    this.http.put(url, updateed_post, httpOptions);
   }
 
-  // deletePost(username: string, postid: number): void {
-  //   const url = '${baseUrl}/${username}/${postid}';
-  //   let to_delete: Post[] = this.posts.filter(p => p.postid === postid);
-  //   if (to_delete.length > 0){
-  //     this.posts = this.posts.filter(p => p.postid !== postid);
-  //     this.http.delete(url, httpOptions);
-  //   }
-  // }
+  deletePost(username: string, postid: number): void {
+    const url = `${this.baseUrl}/${username}/${postid}`;
+    const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
+    for (let i = 0; i < to_delete.length; i++) {
+      this.posts = this.posts.filter(p => p.postid !== postid);
+      this.http.delete(url, {observe: 'response'}).subscribe(res => {
+        console.log(res);
+        if (res.status !== 204) {
+          console.log('error deleting post');
+          // display alert message
+          // navigate to /, the list pane
+        }
+      });
+    }
+  }
 }
 
 

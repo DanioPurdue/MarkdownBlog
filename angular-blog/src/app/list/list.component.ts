@@ -27,6 +27,7 @@ export class ListComponent implements OnInit {
 
   getPosts(): void {
     this.username = 'cs144';
+    this.blogService.fetchPosts(this.username);
     this.blogService.getPosts(this.username)
       .subscribe(posts => this.posts = posts);
   }
@@ -50,5 +51,17 @@ export class ListComponent implements OnInit {
     return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear() + ', ' + strTime;
   }
 
+  testNew(): void{
+    this.blogService.newPost('cs144');
+  }
+
+  testDelete(): void{
+    this.blogService.deletePost('cs144', 4);
+  }
+
+  testUpdate(): void {
+    const time = new Date();
+    this.blogService.updatePost('cs144', { postid: 5, created: time, modified: time , title: 'updated t', body: 'updated b'});
+  }
 
 }
