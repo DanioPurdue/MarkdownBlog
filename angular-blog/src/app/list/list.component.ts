@@ -17,6 +17,12 @@ export class ListComponent implements OnInit {
     this.blogService.parseHttpResposne();
   }
 
+  parseJWT(token): string {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(atob(base64)).username;
+  }
+
   getPosts(): void {
     this.username = 'cs144';
     this.blogService.getPosts(this.username)
