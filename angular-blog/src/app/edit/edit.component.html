@@ -1,13 +1,11 @@
-<div>
-    <div *ngIf = "curr_post">
-      <div>
-        <label>Title:</label><br>
-        <input [(ngModel)]="curr_post.title" placeholder="title">
-      </div>
-      <div>
-        <label>Body:</label><br>
-        <input [(ngModel)]="curr_post.body" placeholder="body">
-      </div>
+<div *ngIf = "post">
+  <div>
+    <label>Title:</label><br>
+    <input [(ngModel)]="post.title" placeholder="title">
+  </div>
+  <div>
+    <label>Body:</label><br>
+    <input [(ngModel)]="post.body" placeholder="body">
   </div>
   <div>
     Last Modified:
