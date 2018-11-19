@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {tick} from '@angular/core/testing';
+import { Post } from "../blog.service";
 
 @Component({
   selector: 'app-edit',
@@ -7,12 +8,11 @@ import {tick} from '@angular/core/testing';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  title: string;
-  body: string;
+  curr_post : Post;
 
   constructor() {
-    this.title = 'hello title';
-    this.body = 'hello body';
+    // this.curr_post.title = 'hello title';
+    // this.curr_post.body = 'hello body';
   }
 
   ngOnInit() {
