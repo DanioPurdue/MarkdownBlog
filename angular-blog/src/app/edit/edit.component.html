@@ -1,11 +1,11 @@
 <div>
   <div >
     <label>Title:</label><br>
-    <input type="text" name = "title" value = "hello">
+    <input [(ngModel)]="this.title" placeholder="title">
   </div>
   <div>
     <label>Body:</label><br>
-    <input type="text" name = "Body" value = "Post Body">
+    <input [(ngModel)]="this.body" placeholder="body">
   </div>
   <div>
     Last Modified:
@@ -14,9 +14,9 @@
     delete
   </button>
   <button clas="save" (click)="savePost()">
-    delete
+    save
   </button>
   <button clas="preview" (click)="previewPost()">
-    delete
+    preview
   </button>
 </div>

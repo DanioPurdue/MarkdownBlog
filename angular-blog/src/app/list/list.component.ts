@@ -13,11 +13,13 @@ export class ListComponent implements OnInit {
   constructor(private blogService: BlogService) { }
 
   ngOnInit() {
+    this.blogService.fetchPosts('cs144');
     this.getPosts();
     // this.blogService.parseHttpResposne();
   }
 
-  parseJWT(token): string {
+
+  parseJWTUsername(token): string {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     return JSON.parse(atob(base64)).username;
@@ -33,8 +35,20 @@ export class ListComponent implements OnInit {
     return;
   }
 
-  testFetch() :void{
+  testFetch():void{
     this.blogService.fetchPosts('cs144');
   }
+
+  formatDate(date: Date): string {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutes_str = minutes < 10 ? '0' + minutes : minutes + '';
+    const strTime = hours + ':' + minutes_str + ' ' + ampm;
+    return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear() + ', ' + strTime;
+  }
+
 
 }
