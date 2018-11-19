@@ -30,7 +30,6 @@ export class ListComponent implements OnInit {
 
   getPosts(): void {
     this.username = 'cs144';
-    this.blogService.fetchPosts(this.username);
     this.blogService.getPosts(this.username)
       .subscribe(posts => this.posts = posts);
   }
