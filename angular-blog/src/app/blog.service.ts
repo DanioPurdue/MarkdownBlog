@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {forEach} from '@angular/router/src/utils/collection';
-import {element} from 'protractor';
+// import {element} from 'protractor';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -42,10 +42,10 @@ export class BlogService {
     console.log(url);
     this.http.get(url,{observe: 'response'}).subscribe((res) => {
       console.log(res);
-      let data = res.body;
-      for (let idx in data) {
-        let element = data[idx];
-        let post: Post = {postid: element['postid'], created: Date(element['created']),
+      const data = res.body;
+      for (const idx in data) {
+        const element = data[idx];
+        const post: Post = {postid: element['postid'], created: new Date(element['created']),
           modified: new Date(element['modified']), title: element['title'], body: element['body']};
         this.posts.push(post);
       }
