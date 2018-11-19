@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.getPosts();
-    this.blogService.parseHttpResposne();
+    // this.blogService.parseHttpResposne();
   }
 
   parseJWT(token): string {
