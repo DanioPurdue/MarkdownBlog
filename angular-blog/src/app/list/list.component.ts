@@ -10,6 +10,7 @@ import {post} from "selenium-webdriver/http";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
 export class ListComponent implements OnInit {
   posts: Post[];
   username: string;
@@ -24,7 +25,13 @@ export class ListComponent implements OnInit {
 
   getPosts(): void {
     this.blogService.getPosts(this.username)
-      .subscribe(posts => this.posts = posts);
+      .subscribe(posts => {
+        posts.sort(this.comparePost);
+        this.posts = posts; });
+  }
+
+  comparePost(post1: Post, post2: Post): number {
+    return post1.postid - post2.postid;
   }
 
   createPost(): void {

@@ -12,6 +12,7 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class EditComponent implements OnInit {
   post: Post;
+  username: string;
 
   constructor(private blogService: BlogService, private route: ActivatedRoute) {
   }
@@ -31,11 +32,16 @@ export class EditComponent implements OnInit {
     return;
   }
 
+  // save the post that your currently working
   savePost(): void {
+    this.blogService.getUsername()
+      .subscribe(username => {this.blogService.updatePost(username, this.post); });
     return;
   }
 
   previewPost(): void {
+    this.savePost();
+
     return;
   }
 }
