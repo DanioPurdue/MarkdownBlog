@@ -40,7 +40,6 @@ export class BlogService {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     let json = JSON.parse(atob(base64));
-    // console.log(json);
     return json.usr;
   }
 
@@ -56,7 +55,6 @@ export class BlogService {
     let req = new XMLHttpRequest();
     req.open('GET', url, false);
     req.onreadystatechange = () => {
-      console.log('req state: ', req.readyState);
       if (req.readyState === 4) {
         let data = JSON.parse(req.response);
           for (let idx in data) {
@@ -73,25 +71,11 @@ export class BlogService {
   }
 
   getPosts(username: string): Observable<Post []> {
-    console.log('service (get posts): ', this.posts);
     return of(this.posts);
   }
 
   getPost(username: string, id: number): Observable<Post> {
-    console.log('service post: ', this.posts);
     return of(this.posts.filter(p => p.postid === id) [0]);
-    // for (let idx of this.posts) {
-    //   console.log(idx);
-    //   if (this.posts.hasOwnProperty(idx)) {
-    //     let p = this.posts[idx];
-    //     console.log('service, post: ', p);
-    //     if (p.postid === id) {
-    //       return of(p);
-    //     }
-    //   }
-    // }
-    // let post: Post;
-    // return of(post);
   }
 
   generatePostid(): number {
@@ -128,7 +112,6 @@ export class BlogService {
       p.body = post.body;
       p.modified = new Date();
       const url = `${this.baseUrl}/${username}/${p.postid}`;
-      console.log(p);
       this.http.put(url, {title: p.title, body: p.body}, {observe: 'response'}).subscribe(res => {
         console.log(res);
         if (res['status'] !== 200) {

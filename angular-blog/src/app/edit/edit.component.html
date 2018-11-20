@@ -16,7 +16,7 @@
   <button clas="save" (click)="savePost()">
     save
   </button>
-  <button clas="preview" (click)="previewPost()">
+  <button clas="preview" (click)="previewPost()" routerLink = "/preview/{{post.postid}}">
     preview
   </button>
 </div>
