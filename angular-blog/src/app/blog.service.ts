@@ -53,18 +53,23 @@ export class BlogService {
     // add a response event handler
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
-    this.http.get(url, {observe: 'response'}).subscribe((res) => {
-      // console.log(res.status);
-      const data = res.body;
-      for (let idx in data) {
-        if (data.hasOwnProperty(idx)) {
-          const element = data[idx];
-          const post: Post = {postid: element['postid'], created: new Date(element['created']),
-            modified: new Date(element['modified']), title: element['title'], body: element['body']};
-          this.posts.push(post);
-        }
+    let req = new XMLHttpRequest();
+    req.open('GET', url, false);
+    req.onreadystatechange = () => {
+      console.log('req state: ', req.readyState);
+      if (req.readyState === 4) {
+        let data = JSON.parse(req.response);
+          for (let idx in data) {
+            if (data.hasOwnProperty(idx)) {
+              const element = data[idx];
+              const post: Post = {postid: element['postid'], created: new Date(element['created']),
+                modified: new Date(element['modified']), title: element['title'], body: element['body']};
+              this.posts.push(post);
+            }
+          }
       }
-    });
+    };
+    req.send();
   }
 
   getPosts(username: string): Observable<Post []> {
