@@ -27,7 +27,7 @@ export class PreviewComponent implements OnInit {
   getTitleBody(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogservice.getPost('cs144', id).subscribe(post => {
-      console.log(post);
+      console.log('preview: ', post);
       this.title = post.title;
       this.body = post.body;
     });

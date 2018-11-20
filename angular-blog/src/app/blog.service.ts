@@ -41,7 +41,7 @@ export class BlogService {
       // console.log(res.status);
       const data = res.body;
       for (let idx in data) {
-        if (data.hasOwnProperty(idx)){
+        if (data.hasOwnProperty(idx)) {
           const element = data[idx];
           const post: Post = {postid: element['postid'], created: new Date(element['created']),
             modified: new Date(element['modified']), title: element['title'], body: element['body']};
@@ -52,11 +52,25 @@ export class BlogService {
   }
 
   getPosts(username: string): Observable<Post []> {
+    console.log('service (get posts): ', this.posts);
     return of(this.posts);
   }
 
   getPost(username: string, id: number): Observable<Post> {
-    return of(this.posts.filter(post => post.postid === id)[0]);
+    console.log('service post: ', this.posts);
+    return of(this.posts.filter(p => p.postid === id) [0]);
+    // for (let idx of this.posts) {
+    //   console.log(idx);
+    //   if (this.posts.hasOwnProperty(idx)) {
+    //     let p = this.posts[idx];
+    //     console.log('service, post: ', p);
+    //     if (p.postid === id) {
+    //       return of(p);
+    //     }
+    //   }
+    // }
+    // let post: Post;
+    // return of(post);
   }
 
   generatePostid(): number {
@@ -70,7 +84,6 @@ export class BlogService {
   }
 
   newPost(username: string): Observable<Post> {
-    console.log('posts: ', this.posts);
     const time = new Date();
     const postid = this.generatePostid();
     const url = `${this.baseUrl}/${username}/${postid}`;
@@ -108,7 +121,9 @@ export class BlogService {
 
   deletePost(username: string, postid: number): void {
     const url = `${this.baseUrl}/${username}/${postid}`;
+    console.log('service delete: ', this.posts[3]);
     const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
+    console.log('to delete: ', to_delete);
     for (let i = 0; i < to_delete.length; i++) {
       this.posts = this.posts.filter(p => p.postid !== postid);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {

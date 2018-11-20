@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
   }
 
   testDelete(): void{
-    this.blogService.refreshPosts('cs144').subscribe(posts => this.posts = posts);
+    this.blogService.deletePost('cs144', 3); //.subscribe(posts => this.posts = posts);
   }
 
   testUpdate(): void {
