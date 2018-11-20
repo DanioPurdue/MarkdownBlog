@@ -4,6 +4,7 @@ import { Post } from '../blog.service';
 import { BlogService} from '../blog.service';
 import {Router, RouterModule, Routes} from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-edit',
@@ -13,12 +14,17 @@ import { ActivatedRoute} from '@angular/router';
 export class EditComponent implements OnInit {
   post: Post;
   username: string;
+  isSaved: boolean;
 
-  constructor(private blogService: BlogService, private route: ActivatedRoute) {
+  constructor(private blogService: BlogService,
+              private route: ActivatedRoute,
+              private location: Location) {
+    console.log('constructor');
   }
 
   ngOnInit() {
-    this.getPost();
+    console.log("nginit");
+    this.route.paramMap.subscribe(() => {this.getPost());
     console.log(this.post);
   }
 
@@ -26,6 +32,7 @@ export class EditComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogService.getPost('cs144', id)
       .subscribe(post => this.post = post);
+    this.isSaved = true;
   }
 
   deletePost(): void {
@@ -35,14 +42,24 @@ export class EditComponent implements OnInit {
 
   // save the post that your currently working
   savePost(): void {
+    this.isSaved = true;
+    console.log(this.isSaved);
     this.blogService.getUsername()
       .subscribe(username => {this.blogService.updatePost(username, this.post); });
     return;
   }
 
+  changeToNotSaved(): void {
+    // console.log("not saved update");
+    this.isSaved = false;
+  }
+
+  noNeedToSave(): boolean{
+    return this.isSaved;
+  }
+
   previewPost(): void {
     this.savePost();
-
     return;
   }
 }
