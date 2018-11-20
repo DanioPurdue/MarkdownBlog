@@ -16,32 +16,25 @@ export class ListComponent implements OnInit {
   constructor(private blogService: BlogService, private route: Router) { }
 
   ngOnInit() {
-    this.blogService.fetchPosts('cs144');
-    this.getPosts();
-    // this.blogService.parseHttpResposne();
-  }
-
-
-  parseJWTUsername(token): string {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(base64)).username;
+    this.blogService.getUsername()
+      .subscribe(username => {
+        this.username = username;
+        this.getPosts(); });
   }
 
   getPosts(): void {
-    this.username = 'cs144';
     this.blogService.getPosts(this.username)
       .subscribe(posts => this.posts = posts);
   }
 
   createPost(): void {
-    this.blogService.newPost('cs144')
+    this.blogService.newPost(this.username)
       .subscribe(post => this.route.navigateByUrl(`edit/${post.postid}`));
     return;
   }
 
   testFetch():void{
-    this.blogService.fetchPosts('cs144');
+    this.blogService.fetchPosts(this.username);
   }
 
   formatDate(date: Date): string {

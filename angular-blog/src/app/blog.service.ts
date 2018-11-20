@@ -27,11 +27,27 @@ export interface RawTuple {
 export class BlogService {
   private baseUrl = 'http://localhost:3000/api';  // URL to web api
   private posts: Post[];
+  private username: string;
   constructor(private http: HttpClient, private router: Router) {
-
+    this.getUsername()
+      .subscribe(username => {this.fetchPosts(username); this.username = username; });
+    console.log(document.cookie);
   }
   private rawTuples: RawTuple[];
   private headers: string;
+
+  parseJWTUsername(token): string {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let json = JSON.parse(atob(base64));
+    // console.log(json);
+    return json.usr;
+  }
+
+  // return the username from the cookie
+  getUsername(): Observable<string> {
+    return of(this.parseJWTUsername(document.cookie));
+  }
 
   fetchPosts (username: string): void {
     // add a response event handler
