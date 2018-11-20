@@ -56,15 +56,11 @@ export class BlogService {
     req.open('GET', url, false);
     req.onreadystatechange = () => {
       if (req.readyState === 4) {
-        let data = JSON.parse(req.response);
-          for (let idx in data) {
-            if (data.hasOwnProperty(idx)) {
-              const element = data[idx];
-              const post: Post = {postid: element['postid'], created: new Date(element['created']),
-                modified: new Date(element['modified']), title: element['title'], body: element['body']};
-              this.posts.push(post);
-            }
-          }
+        JSON.parse(req.response).forEach(p => {
+          const post: Post = {postid: p.postid, created: new Date(p.created),
+                   modified: new Date(p.modified), title: p.title, body: p.body};
+          this.posts.push(post);
+        });
       }
     };
     req.send();
@@ -79,13 +75,7 @@ export class BlogService {
   }
 
   generatePostid(): number {
-    let max = 0;
-    for (let p of this.posts){
-      if (p.postid > max) {
-        max = p.postid;
-      }
-    }
-    return max + 1;
+    return Math.max(...this.posts.map(p => p.postid)) + 1;
   }
 
   newPost(username: string): Observable<Post> {
@@ -95,11 +85,10 @@ export class BlogService {
     const post: Post = {postid: postid, created: time, modified: time, title: '', body: ''};
     this.posts.push(post);
     this.http.post(url, {title: '', body: ''},{observe: 'response'}).subscribe(res => {
-      //console.log('new post', res['status']);
       if (res['status'] !== 201) {
         this.posts.pop();
         console.log('error creating new post');
-        this.router.navigateByUrl('/preview');
+        this.router.navigateByUrl('/');
       }
     });
     return of(post);
@@ -113,7 +102,6 @@ export class BlogService {
       p.modified = new Date();
       const url = `${this.baseUrl}/${username}/${p.postid}`;
       this.http.put(url, {title: p.title, body: p.body}, {observe: 'response'}).subscribe(res => {
-        console.log(res);
         if (res['status'] !== 200) {
           console.log('Error updating post');
           // display error
@@ -125,13 +113,13 @@ export class BlogService {
 
   deletePost(username: string, postid: number): void {
     const url = `${this.baseUrl}/${username}/${postid}`;
-    console.log('service delete: ', this.posts[3]);
     const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
     console.log('to delete: ', to_delete);
     for (let i = 0; i < to_delete.length; i++) {
       this.posts = this.posts.filter(p => p.postid !== postid);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {
         console.log(res);
+        console.log('posts after deleting ', `${postid}`, this.posts);
         if (res.status !== 204) {
           console.log('error deleting post');
           // display alert message

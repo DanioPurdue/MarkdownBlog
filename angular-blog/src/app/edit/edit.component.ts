@@ -19,17 +19,18 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.getPost();
+    console.log(this.post);
   }
 
   getPost(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogService.getPost('cs144', id)
       .subscribe(post => this.post = post);
-
   }
 
   deletePost(): void {
-    return;
+    // need to ask list component to delete the post in its this.posts
+    this.blogService.getUsername().subscribe(username => this.blogService.deletePost(username, this.post.postid));
   }
 
   // save the post that your currently working

@@ -67,5 +67,4 @@ export class ListComponent implements OnInit {
     const time = new Date();
     this.blogService.updatePost('cs144', { postid: 5, created: time, modified: time , title: 'updated t', body: 'updated b'});
   }
-
 }
