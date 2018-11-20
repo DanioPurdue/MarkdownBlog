@@ -1,11 +1,11 @@
 <div *ngIf = "post">
   <div>
     <label>Title:</label><br>
-    <input [(ngModel)]="post.title" placeholder="title">
+    <input [(ngModel)]="post.title" (keydown)="changeToNotSaved()" placeholder="title">
   </div>
   <div>
     <label>Body:</label><br>
-    <input [(ngModel)]="post.body" placeholder="body">
+    <input [(ngModel)]="post.body" (keydown)="changeToNotSaved()" placeholder="body">
   </div>
   <div>
     Last Modified:
@@ -13,7 +13,7 @@
   <button clas="delete" (click)="deletePost()">
     delete
   </button>
-  <button clas="save" (click)="savePost()">
+  <button clas="save" [disabled]="noNeedToSave()" (click)="savePost()">
     save
   </button>
   <button clas="preview" (click)="previewPost()" routerLink = "/preview/{{post.postid}}">
