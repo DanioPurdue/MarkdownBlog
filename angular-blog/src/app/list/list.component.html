@@ -3,7 +3,7 @@
 </button>
 <ul class="Posts">
   <li *ngFor="let post of posts">
-    <a routerLink="/edit/{{post.postid}}}">
+    <a routerLink="/edit/{{post.postid}}">
       <span class="badge">{{formatDate(post.created)}}</span> &nbsp;{{post.title}}
     </a>
   </li>

@@ -40,7 +40,6 @@ export class BlogService {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     let json = JSON.parse(atob(base64));
-    // console.log(json);
     return json.usr;
   }
 
@@ -53,18 +52,22 @@ export class BlogService {
     // add a response event handler
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
-    this.http.get(url, {observe: 'response'}).subscribe((res) => {
-      // console.log(res.status);
-      const data = res.body;
-      for (let idx in data) {
-        if (data.hasOwnProperty(idx)){
-          const element = data[idx];
-          const post: Post = {postid: element['postid'], created: new Date(element['created']),
-            modified: new Date(element['modified']), title: element['title'], body: element['body']};
-          this.posts.push(post);
-        }
+    let req = new XMLHttpRequest();
+    req.open('GET', url, false);
+    req.onreadystatechange = () => {
+      if (req.readyState === 4) {
+        let data = JSON.parse(req.response);
+          for (let idx in data) {
+            if (data.hasOwnProperty(idx)) {
+              const element = data[idx];
+              const post: Post = {postid: element['postid'], created: new Date(element['created']),
+                modified: new Date(element['modified']), title: element['title'], body: element['body']};
+              this.posts.push(post);
+            }
+          }
       }
-    });
+    };
+    req.send();
   }
 
   getPosts(username: string): Observable<Post []> {
@@ -72,7 +75,7 @@ export class BlogService {
   }
 
   getPost(username: string, id: number): Observable<Post> {
-    return of(this.posts.filter(post => post.postid === id)[0]);
+    return of(this.posts.filter(p => p.postid === id) [0]);
   }
 
   generatePostid(): number {
@@ -86,7 +89,6 @@ export class BlogService {
   }
 
   newPost(username: string): Observable<Post> {
-    console.log('posts: ', this.posts);
     const time = new Date();
     const postid = this.generatePostid();
     const url = `${this.baseUrl}/${username}/${postid}`;
@@ -110,7 +112,6 @@ export class BlogService {
       p.body = post.body;
       p.modified = new Date();
       const url = `${this.baseUrl}/${username}/${p.postid}`;
-      console.log(p);
       this.http.put(url, {title: p.title, body: p.body}, {observe: 'response'}).subscribe(res => {
         console.log(res);
         if (res['status'] !== 200) {
@@ -124,7 +125,9 @@ export class BlogService {
 
   deletePost(username: string, postid: number): void {
     const url = `${this.baseUrl}/${username}/${postid}`;
+    console.log('service delete: ', this.posts[3]);
     const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
+    console.log('to delete: ', to_delete);
     for (let i = 0; i < to_delete.length; i++) {
       this.posts = this.posts.filter(p => p.postid !== postid);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {

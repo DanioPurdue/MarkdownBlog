@@ -1,6 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-//import { Parser, HtmlRenderer } from 'commonmark';
+import { Parser, HtmlRenderer } from 'commonmark';
 import { BlogService} from '../blog.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -27,7 +27,7 @@ export class PreviewComponent implements OnInit {
   getTitleBody(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogservice.getPost('cs144', id).subscribe(post => {
-      console.log(post);
+      // console.log('preview: ', post);
       this.title = post.title;
       this.body = post.body;
     });
