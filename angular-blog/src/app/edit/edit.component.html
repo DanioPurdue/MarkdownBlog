@@ -1,14 +1,14 @@
 <div *ngIf = "post">
   <div>
     <label>Title:</label><br>
-    <input [(ngModel)]="post.title" (keydown)="changeToNotSaved()" placeholder="title">
+    <input [(ngModel)]="post.title" (keydown)="changeToNotSaved()" cols = "50" placeholder="title">
   </div>
   <div>
     <label>Body:</label><br>
-    <input [(ngModel)]="post.body" (keydown)="changeToNotSaved()" placeholder="body">
+    <textarea [(ngModel)]="post.body" (keydown)="changeToNotSaved()" cols = "50" rows = "10" placeholder="body"></textarea>
   </div>
   <div>
-    Last Modified: {{post.modified}}
+    Last Modified: {{post.modified.toLocaleString()}}
   </div>
   <button clas="delete" (click)="deletePost()" routerLink="/">
     delete

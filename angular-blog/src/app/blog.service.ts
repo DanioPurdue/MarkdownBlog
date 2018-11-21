@@ -118,12 +118,9 @@ export class BlogService {
     for (let i = 0; i < to_delete.length; i++) {
       this.posts.splice(this.posts.findIndex( p => p.postid === postid), 1);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {
-        // console.log(res);
-        // console.log('posts after deleting ', `${postid}`, this.posts);
         if (res.status !== 204) {
           console.log('error deleting post');
           // display alert message
-          // navigate to /, the list pane
           this.router.navigateByUrl('/');
         }
       });

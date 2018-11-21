@@ -19,11 +19,9 @@ export class EditComponent implements OnInit {
   constructor(private blogService: BlogService,
               private route: ActivatedRoute,
               private location: Location) {
-    console.log('constructor');
   }
 
   ngOnInit() {
-    console.log("nginit");
     this.route.paramMap.subscribe(() => this.getPost());
     console.log(this.post);
   }
@@ -43,7 +41,6 @@ export class EditComponent implements OnInit {
   // save the post that your currently working
   savePost(): void {
     this.isSaved = true;
-    console.log(this.isSaved);
     this.blogService.getUsername()
       .subscribe(username => {this.blogService.updatePost(username, this.post); });
     return;
