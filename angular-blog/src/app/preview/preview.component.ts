@@ -4,6 +4,8 @@ import { Parser, HtmlRenderer } from 'commonmark';
 import { BlogService} from '../blog.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {  }
+
 
 
 @Component({
@@ -16,11 +18,9 @@ import { Location } from '@angular/common';
 export class PreviewComponent implements OnInit {
   title: string;
   body: string;
-  constructor(//private parser: Parser,
-              private blogservice: BlogService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private blogservice: BlogService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
-    //this.blogservice.fetchPosts('cs144');
     this.getTitleBody();
   }
 
@@ -28,8 +28,12 @@ export class PreviewComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogservice.getPost('cs144', id).subscribe(post => {
       // console.log('preview: ', post);
-      this.title = post.title;
-      this.body = post.body;
+      var reader = new Parser();
+      var writer = new HtmlRenderer();
+      this.title = writer.render(reader.parse('## hello'));
+      this.body = writer.render(reader.parse(post.body));
+      console.log(this.body);
+      console.log(this.title);
     });
   }
 

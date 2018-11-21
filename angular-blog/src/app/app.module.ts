@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-// import { Parser, HtmlRenderer } from 'commonmark';
+import { Parser, HtmlRenderer } from 'commonmark';
 // import { ActivatedRoute } from '@angular/router';
 // import { Location } from '@angular/common';
 
@@ -12,6 +12,7 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PreviewComponent } from './preview/preview.component';
+import {sanitizeHtml} from '@angular/core/src/sanitization/sanitization';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,9 @@ import { PreviewComponent } from './preview/preview.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
+    FormsModule
     // Parser,
-    // HtmlRenderer,
+    // HtmlRenderer
     // Location,
     // ActivatedRoute
   ],
