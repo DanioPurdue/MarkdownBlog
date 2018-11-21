@@ -27,8 +27,8 @@ export class PreviewComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.blogservice.getPost('cs144', id).subscribe(post => {
       // console.log('preview: ', post);
-      var reader = new Parser();
-      var writer = new HtmlRenderer();
+      const reader = new Parser();
+      const writer = new HtmlRenderer();
       this.title = writer.render(reader.parse('## hello'));
       this.body = writer.render(reader.parse(post.body));
       console.log(this.body);
