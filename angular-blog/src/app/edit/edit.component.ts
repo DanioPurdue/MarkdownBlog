@@ -22,13 +22,14 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(() => this.getPost());
-    console.log(this.post);
+    this.route.paramMap.subscribe(() => this.blogService.getUsername()
+      .subscribe(username => {this.username = username;
+      this.getPost(username); }));
   }
 
-  getPost(): void {
+  getPost(username: string): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.blogService.getPost('cs144', id)
+    this.blogService.getPost(username, id)
       .subscribe(post => this.post = post);
     this.isSaved = true;
   }
