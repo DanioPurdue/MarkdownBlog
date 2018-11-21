@@ -24,7 +24,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     console.log("nginit");
-    this.route.paramMap.subscribe(() => {this.getPost());
+    this.route.paramMap.subscribe(() => this.getPost());
     console.log(this.post);
   }
 

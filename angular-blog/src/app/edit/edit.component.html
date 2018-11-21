@@ -10,7 +10,7 @@
   <div>
     Last Modified: {{post.modified}}
   </div>
-  <button clas="delete" (click)="deletePost()">
+  <button clas="delete" (click)="deletePost()" routerLink="/">
     delete
   </button>
   <button clas="save" [disabled]="noNeedToSave()" (click)="savePost()">

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService} from '../blog.service';
 import {Post} from '../blog.service';
-import {Router, RouterModule, Routes} from '@angular/router';
-import { ActivatedRoute } from "@angular/router";
-import {post} from "selenium-webdriver/http";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -27,6 +25,7 @@ export class ListComponent implements OnInit {
     this.blogService.getPosts(this.username)
       .subscribe(posts => {
         posts.sort(this.comparePost);
+        console.log('list: ', this.posts);
         this.posts = posts; });
   }
 
@@ -40,10 +39,6 @@ export class ListComponent implements OnInit {
     return;
   }
 
-  testFetch():void{
-    this.blogService.fetchPosts(this.username);
-  }
-
   formatDate(date: Date): string {
     let hours = date.getHours();
     const minutes = date.getMinutes();
@@ -53,18 +48,5 @@ export class ListComponent implements OnInit {
     const minutes_str = minutes < 10 ? '0' + minutes : minutes + '';
     const strTime = hours + ':' + minutes_str + ' ' + ampm;
     return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear() + ', ' + strTime;
-  }
-
-  testNew(): void{
-    this.blogService.newPost('cs144');
-  }
-
-  testDelete(): void{
-    this.blogService.deletePost('cs144', 3); //.subscribe(posts => this.posts = posts);
-  }
-
-  testUpdate(): void {
-    const time = new Date();
-    this.blogService.updatePost('cs144', { postid: 5, created: time, modified: time , title: 'updated t', body: 'updated b'});
   }
 }

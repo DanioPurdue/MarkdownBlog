@@ -116,10 +116,10 @@ export class BlogService {
     const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
     console.log('to delete: ', to_delete);
     for (let i = 0; i < to_delete.length; i++) {
-      this.posts = this.posts.filter(p => p.postid !== postid);
+      this.posts.splice(this.posts.findIndex( p => p.postid === postid), 1);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {
-        console.log(res);
-        console.log('posts after deleting ', `${postid}`, this.posts);
+        // console.log(res);
+        // console.log('posts after deleting ', `${postid}`, this.posts);
         if (res.status !== 204) {
           console.log('error deleting post');
           // display alert message
