@@ -37,31 +37,51 @@ export class BlogService {
   private headers: string;
 
   parseJWTUsername(token): string {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let json = JSON.parse(atob(base64));
-    return json.usr;
+    //error checking
+    if (token == null || token === undefined) {
+      console.log('jwt line 42');
+      return undefined;
+    } else{
+      let base64Url = token.split('.')[1];
+      console.log(base64Url);
+      if (base64Url == null || base64Url == undefined) {
+        return undefined;
+      }
+      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      let json = JSON.parse(atob(base64));
+      //error checking
+      if (json.usr == null || json.usr === undefined) return undefined;
+      return json.usr;
+    }
   }
 
   // return the username from the cookie
   getUsername(): Observable<string> {
+    console.log('jwt line 55');
     return of(this.parseJWTUsername(document.cookie));
   }
 
   fetchPosts (username: string): void {
     // add a response event handler
+    // error checking
+    if (username === undefined || username == null) {
+      console.log('user undefined redirect to login');
+      window.location.assign('/login?redirect=/editor/');
+      return;
+    }
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
+    console.log(url);
     let req = new XMLHttpRequest();
     req.open('GET', url, false);
     req.onreadystatechange = () => {
-      if (req.readyState === 4) {
-        JSON.parse(req.response).forEach(p => {
-          const post: Post = {postid: p.postid, created: new Date(p.created),
-                   modified: new Date(p.modified), title: p.title, body: p.body};
-          this.posts.push(post);
-        });
-      }
+        if (req.readyState === 4) {
+          JSON.parse(req.response).forEach(p => {
+            const post: Post = {postid: p.postid, created: new Date(p.created),
+              modified: new Date(p.modified), title: p.title, body: p.body};
+            this.posts.push(post);
+          });
+        }
     };
     req.send();
   }
