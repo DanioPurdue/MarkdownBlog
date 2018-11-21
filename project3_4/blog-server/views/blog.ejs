@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post List</title>
+</head>
+<body>
+<form method="GET" action="post" id="0">
+    <input type="hidden" name="username" value="tom" >
+    <input type="hidden" name="postid" value="0">
+    <input type="hidden" name="title" value="">
+    <input type="hidden" name="body" value="">
+    <button type="submit" name="action" value="open">New Post</button>
+</form>
+<table>
+    <tbody>
+    <tr id = "table_headers"><th>Title</th><th>Created</th><th>Modified</th><th>&nbsp;</th></tr>
+    <% for (let post of posts){ %>
+        <tr>
+
+            <td><%= post.title %></td>
+            <td><%= new Date(post.created).toLocaleString() %></td>
+            <td><%= new Date(post.modified).toLocaleString() %></td>
+
+            <td>
+                <form method="POST" action="post" id="0">
+                    <input type="hidden" name="username" value="<%=post.username %>">
+                    <input type="hidden" name="postid" value="<%=post.postid %>">
+                    <button type="submit" id="list_open" name="action" value="open">Open</button>
+                </form>
+                <form method="POST" action="post" id="0">
+                    <input type="hidden" name="username" value="<%=post.username %>">
+                    <input type="hidden" name="postid" value="<%=post.postid %>">
+                    <button type="submit" id="list_delete" name="action" value="delete">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+    <% } %>
+
+    </tbody>
+</table>
+
+    <a href=<%= "/blog/"+username+"?start="+(start-5).toString() %> id="prev"> Prev </a>
+    <a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a href=<%= "/blog/"+username+"?start="+(start+5).toString() %> id="next"> Next </a>
+
+</body>
+</html>

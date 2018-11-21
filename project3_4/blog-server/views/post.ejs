@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Post View
+    </title>
+</head>
+<body>
+<form action=<%= "/blog/"+username %> method="GET">
+    <input type="hidden" name="start" value=<%= start %> >
+    <button type="submit">
+        Close
+    </button>
+</form>
+<h1 id = "title">
+    <%= post[0].title %>
+</h1>
+    <%= post[0].body %>
+</body>
+</html>

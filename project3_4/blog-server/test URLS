@@ -1,0 +1,8 @@
+Test Login Page
+http://localhost:3000/login?redirect=/blog/cs144
+http://localhost:3000/blog/cs144
+http://localhost:3000/blog/cs144?start=1
+http://localhost:3000/api/cs144
+
+Delete a post
+http://localhost:3000/api/cs144/3
