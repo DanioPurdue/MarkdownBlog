@@ -64,7 +64,11 @@ export class BlogService {
   fetchPosts (username: string): void {
     // add a response event handler
     // error checking
-    // if (username === undefined || username == null) username = '';
+    if (username === undefined || username == null) {
+      console.log('user undefined redirect to login');
+      window.location.assign('/login?redirect=/editor/');
+      return;
+    }
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
     console.log(url);
