@@ -1,0 +1,26 @@
+var express = require('express');
+var router = express.Router();
+const authen = require('./authen');
+
+router.use('/', function(req, res, next) {
+    let token = req.cookie.jwt;
+    if(token == null || token == undefined) {
+        //redirect the page
+        redirecToLogin(req, res);
+    }
+    else {
+        //verifyToken
+        authen.verifyToken(token, req, res, redirecToLogin, passToThePage)
+    }
+
+});
+
+
+function redirecToLogin(req, res) {
+    res.redirect('/login?redirect=/editor/');
+}
+
+function passToThePage (req, res) {
+    res.next();
+}
+module.exports = router;
