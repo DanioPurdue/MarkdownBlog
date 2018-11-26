@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var editor_router = require('./routes/editorCheck');
 //MongoDb
 const url = 'mongodb://localhost:27017/BlogServer';
 let expressMongoDb = require('express-mongo-db');
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use('/editor', editor_router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

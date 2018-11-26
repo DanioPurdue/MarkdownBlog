@@ -1,0 +1,33 @@
+var express = require('express');
+var router = express.Router();
+const authen = require('./authen');
+
+router.get('/', function(req, res, next) {
+    console.log("editor check called");
+    if(req.cookies == null || req.cookies == undefined) {
+        console.log("no cookie");
+        redirecToLogin(req, res);
+    }
+    else {
+        let token = req.cookies.jwt;
+        if(token == null || token == undefined) {
+            //redirect the page
+            redirecToLogin(req, res);
+        }
+        else {
+            next();
+        }
+    }
+
+});
+
+
+function redirecToLogin(req, res) {
+    res.redirect('/login?redirect=/editor/');
+}
+
+function passToThePage (req, res) {
+    console.log("login success ! go to the editor page");
+    res.next();
+}
+module.exports = router;
