@@ -5,7 +5,7 @@ const authen = require('./authen');
 router.get('/', function(req, res, next) {
     console.log("editor check called");
     if(req.cookies == null || req.cookies == undefined) {
-        console.log("no cookie");
+        // console.log("no cookie");
         redirecToLogin(req, res);
     }
     else {

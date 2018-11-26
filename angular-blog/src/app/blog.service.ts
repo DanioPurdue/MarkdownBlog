@@ -31,13 +31,13 @@ export class BlogService {
   constructor(private http: HttpClient, private router: Router) {
     this.getUsername()
       .subscribe(username => {this.fetchPosts(username); this.username = username; });
-    console.log(document.cookie);
+    // console.log(document.cookie);
   }
   private rawTuples: RawTuple[];
   private headers: string;
 
   parseJWTUsername(token): string {
-    //error checking
+    // error checking
     if (token == null || token === undefined) {
       console.log('jwt line 42');
       return undefined;
@@ -49,7 +49,7 @@ export class BlogService {
       }
       let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       let json = JSON.parse(atob(base64));
-      //error checking
+      // error checking
       if (json.usr == null || json.usr === undefined) return undefined;
       return json.usr;
     }
@@ -57,7 +57,7 @@ export class BlogService {
 
   // return the username from the cookie
   getUsername(): Observable<string> {
-    console.log('jwt line 55');
+    // console.log('jwt line 55');
     return of(this.parseJWTUsername(document.cookie));
   }
 
@@ -71,7 +71,7 @@ export class BlogService {
     }
     this.posts = [];
     const url = `${this.baseUrl}/${username}`;
-    console.log(url);
+    // console.log(url);
     let req = new XMLHttpRequest();
     req.open('GET', url, false);
     req.onreadystatechange = () => {
@@ -107,7 +107,7 @@ export class BlogService {
     this.http.post(url, {title: '', body: ''},{observe: 'response'}).subscribe(res => {
       if (res['status'] !== 201) {
         this.posts.pop();
-        console.log('error creating new post');
+        // console.log('error creating new post');
         this.router.navigateByUrl('/');
       }
     });
@@ -123,7 +123,7 @@ export class BlogService {
       const url = `${this.baseUrl}/${username}/${p.postid}`;
       this.http.put(url, {title: p.title, body: p.body}, {observe: 'response'}).subscribe(res => {
         if (res['status'] !== 200) {
-          console.log('Error updating post');
+          // console.log('Error updating post');
           // display error
           // navigate to "edit view" page
         }
@@ -134,12 +134,12 @@ export class BlogService {
   deletePost(username: string, postid: number): void {
     const url = `${this.baseUrl}/${username}/${postid}`;
     const to_delete: Post[] = this.posts.filter(p => p.postid === postid);
-    console.log('to delete: ', to_delete);
+    // console.log('to delete: ', to_delete);
     for (let i = 0; i < to_delete.length; i++) {
       this.posts.splice(this.posts.findIndex( p => p.postid === postid), 1);
       this.http.delete(url, {observe: 'response'}).subscribe(res => {
         if (res.status !== 204) {
-          console.log('error deleting post');
+          // console.log('error deleting post');
           // display alert message
           this.router.navigateByUrl('/');
         }

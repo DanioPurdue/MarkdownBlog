@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
     this.blogService.getPosts(this.username)
       .subscribe(posts => {
         posts.sort(this.comparePost);
-        console.log('list: ', this.posts);
+        // console.log('list: ', this.posts);
         this.posts = posts; });
   }
 
