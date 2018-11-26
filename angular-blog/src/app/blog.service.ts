@@ -66,7 +66,7 @@ export class BlogService {
     // error checking
     if (username === undefined || username == null) {
       console.log('user undefined redirect to login');
-      window.location.assign('/login?redirect=/editor/');
+      // window.location.assign('/login?redirect=/editor/');
       return;
     }
     this.posts = [];
