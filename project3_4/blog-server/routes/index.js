@@ -7,7 +7,7 @@ var editor_router = require('./editorCheck');
 
 /* GET home page. */
 //login page
-router.use('/editor', editor_router);
+// router.use('/editor', editor_router);
 router.use('/login', login_router);
 router.get('/',function (req,res) {
     res.render('index',{title:'Express'});

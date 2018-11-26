@@ -2,15 +2,21 @@ var express = require('express');
 var router = express.Router();
 const authen = require('./authen');
 
-router.use('/', function(req, res, next) {
-    let token = req.cookie.jwt;
-    if(token == null || token == undefined) {
-        //redirect the page
+router.get('/', function(req, res, next) {
+    console.log("editor check called");
+    if(req.cookies == null || req.cookies == undefined) {
+        console.log("no cookie");
         redirecToLogin(req, res);
     }
     else {
-        //verifyToken
-        authen.verifyToken(token, req, res, redirecToLogin, passToThePage)
+        let token = req.cookies.jwt;
+        if(token == null || token == undefined) {
+            //redirect the page
+            redirecToLogin(req, res);
+        }
+        else {
+            next();
+        }
     }
 
 });
@@ -21,6 +27,7 @@ function redirecToLogin(req, res) {
 }
 
 function passToThePage (req, res) {
+    console.log("login success ! go to the editor page");
     res.next();
 }
 module.exports = router;
